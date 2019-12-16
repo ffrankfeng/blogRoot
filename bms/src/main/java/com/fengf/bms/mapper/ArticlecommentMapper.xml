@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengf.bms.mapper.ArticlecommentMapper" >
+  <resultMap id="BaseResultMap" type="com.fengf.bms.pojo.Articlecomment" >
+    <result column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="topic_type" property="topicType" jdbcType="VARCHAR" />
+    <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+    <result column="from_uid" property="fromUid" jdbcType="INTEGER" />
+    <result column="to_uid" property="toUid" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="from_username" property="fromUsername" jdbcType="VARCHAR" />
+    <result column="to_username" property="toUsername" jdbcType="VARCHAR" />
+    <result column="comment_time" property="commentTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    comment_id, topic_id, topic_type, comment_content, from_uid, to_uid, article_id, 
+    from_username, to_username, comment_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fengf.bms.pojo.ArticlecommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from articlecomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.fengf.bms.pojo.ArticlecommentExample" >
+    delete from articlecomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from articlecomment where comment_id = #{commentID};
+  </delete>
+  <insert id="insert" parameterType="com.fengf.bms.pojo.Articlecomment" >
+    insert into articlecomment (comment_id, topic_id, topic_type, 
+      comment_content, from_uid, to_uid, 
+      article_id, from_username, to_username, 
+      comment_time)
+    values (#{commentId,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, #{topicType,jdbcType=VARCHAR}, 
+      #{commentContent,jdbcType=VARCHAR}, #{fromUid,jdbcType=INTEGER}, #{toUid,jdbcType=INTEGER}, 
+      #{articleId,jdbcType=INTEGER}, #{fromUsername,jdbcType=VARCHAR}, #{toUsername,jdbcType=VARCHAR}, 
+      #{commentTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fengf.bms.pojo.Articlecomment" >
+    insert into articlecomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="topicId != null" >
+        topic_id,
+      </if>
+      <if test="topicType != null" >
+        topic_type,
+      </if>
+      <if test="commentContent != null" >
+        comment_content,
+      </if>
+      <if test="fromUid != null" >
+        from_uid,
+      </if>
+      <if test="toUid != null" >
+        to_uid,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="fromUsername != null" >
+        from_username,
+      </if>
+      <if test="toUsername != null" >
+        to_username,
+      </if>
+      <if test="commentTime != null" >
+        comment_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="topicId != null" >
+        #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="topicType != null" >
+        #{topicType,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null" >
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUid != null" >
+        #{fromUid,jdbcType=INTEGER},
+      </if>
+      <if test="toUid != null" >
+        #{toUid,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="fromUsername != null" >
+        #{fromUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="toUsername != null" >
+        #{toUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null" >
+        #{commentTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="commentCountByQueryVo" parameterType="CommentQueryVo" resultType="Integer">
+    select count(1) from articlecomment
+    <where>
+      <if test="fromUsername!=null and fromUsername!=''">
+        from_username like "%"#{fromUsername}"%"
+      </if>
+    </where>
+  </select>
+  <select id="selectCommentListByQueryVo" parameterType="CommentQueryVo" resultMap="BaseResultMap">
+    select * from articlecomment
+    <where>
+      <if test="fromUsername!=null and fromUsername!=''">
+        from_username like "%"#{fromUsername}"%"
+      </if>
+    </where>
+    order by comment_id desc
+    limit #{startRow},#{size}
+  </select>
+  <select id="countByExample" parameterType="com.fengf.bms.pojo.ArticlecommentExample" resultType="java.lang.Integer" >
+    select count(*) from articlecomment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+   <select id="selectCommentByArticleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from articlecomment where article_id = #{articleId } order by comment_id desc limit 6 
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update articlecomment
+    <set >
+      <if test="record.commentId != null" >
+        comment_id = #{record.commentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.topicId != null" >
+        topic_id = #{record.topicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.topicType != null" >
+        topic_type = #{record.topicType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentContent != null" >
+        comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromUid != null" >
+        from_uid = #{record.fromUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.toUid != null" >
+        to_uid = #{record.toUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleId != null" >
+        article_id = #{record.articleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromUsername != null" >
+        from_username = #{record.fromUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toUsername != null" >
+        to_username = #{record.toUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentTime != null" >
+        comment_time = #{record.commentTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update articlecomment
+    set comment_id = #{record.commentId,jdbcType=INTEGER},
+      topic_id = #{record.topicId,jdbcType=INTEGER},
+      topic_type = #{record.topicType,jdbcType=VARCHAR},
+      comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      from_uid = #{record.fromUid,jdbcType=INTEGER},
+      to_uid = #{record.toUid,jdbcType=INTEGER},
+      article_id = #{record.articleId,jdbcType=INTEGER},
+      from_username = #{record.fromUsername,jdbcType=VARCHAR},
+      to_username = #{record.toUsername,jdbcType=VARCHAR},
+      comment_time = #{record.commentTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengf.blog.mapper.ArticlelikeMapper" >
+  <resultMap id="BaseResultMap" type="com.fengf.blog.pojo.Articlelike" >
+    <id column="lad_id" property="ladId" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="likeordislike" property="likeordislike" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="lod_time" property="lodTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    lad_id, article_id, likeordislike, user_id, lod_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fengf.blog.pojo.ArticlelikeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from articlelike
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByArticleIdAndUserId" resultMap="BaseResultMap" parameterType="com.fengf.blog.pojo.Articlelike" >
+    select 
+    <include refid="Base_Column_List" />
+    from articlelike
+    where user_id = #{userId,jdbcType=INTEGER}
+    and article_id = #{articleId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from articlelike
+    where lad_id = #{ladId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from articlelike
+    where lad_id = #{ladId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fengf.blog.pojo.ArticlelikeExample" >
+    delete from articlelike
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fengf.blog.pojo.Articlelike" >
+    insert into articlelike (lad_id, article_id, likeordislike, 
+      user_id, lod_time)
+    values (#{ladId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{likeordislike,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{lodTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fengf.blog.pojo.Articlelike" >
+    insert into articlelike
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ladId != null" >
+        lad_id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="likeordislike != null" >
+        likeordislike,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="lodTime != null" >
+        lod_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ladId != null" >
+        #{ladId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="likeordislike != null" >
+        #{likeordislike,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="lodTime != null" >
+        #{lodTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fengf.blog.pojo.ArticlelikeExample" resultType="java.lang.Integer" >
+    select count(*) from articlelike
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update articlelike
+    <set >
+      <if test="record.ladId != null" >
+        lad_id = #{record.ladId,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleId != null" >
+        article_id = #{record.articleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeordislike != null" >
+        likeordislike = #{record.likeordislike,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lodTime != null" >
+        lod_time = #{record.lodTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update articlelike
+    set lad_id = #{record.ladId,jdbcType=INTEGER},
+      article_id = #{record.articleId,jdbcType=INTEGER},
+      likeordislike = #{record.likeordislike,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      lod_time = #{record.lodTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fengf.blog.pojo.Articlelike" >
+    update articlelike
+    <set >
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="likeordislike != null" >
+        likeordislike = #{likeordislike,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="lodTime != null" >
+        lod_time = #{lodTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where lad_id = #{ladId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fengf.blog.pojo.Articlelike" >
+    update articlelike
+    set article_id = #{articleId,jdbcType=INTEGER},
+      likeordislike = #{likeordislike,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      lod_time = #{lodTime,jdbcType=TIMESTAMP}
+    where lad_id = #{ladId,jdbcType=INTEGER}
+  </update>
+</mapper>

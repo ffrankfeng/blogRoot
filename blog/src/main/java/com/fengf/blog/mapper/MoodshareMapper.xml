@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengf.blog.mapper.MoodshareMapper" >
+  <resultMap id="BaseResultMap" type="com.fengf.blog.pojo.Moodshare" >
+    <id column="mood_id" property="moodId" jdbcType="INTEGER" />
+    <result column="mood_content" property="moodContent" jdbcType="VARCHAR" />
+    <result column="mood_pic" property="moodPic" jdbcType="VARCHAR" />
+    <result column="mood_author" property="moodAuthor" jdbcType="VARCHAR" />
+    <result column="mood_date" property="moodDate" jdbcType="TIMESTAMP" />
+    <result column="mood_like" property="moodLike" jdbcType="INTEGER" />
+    <result column="mood_dislike" property="moodDislike" jdbcType="INTEGER" />
+     <result column="mood_likeuserid" property="moodLikeuserid" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fengf.blog.pojo.Moodshare" extends="BaseResultMap" >
+    <result column="mood_likeuserid" property="moodLikeuserid" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mood_id, mood_content, mood_pic, mood_author, mood_date, mood_like, mood_dislike
+  </sql>
+  <sql id="Blob_Column_List" >
+    mood_likeuserid
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.fengf.blog.pojo.MoodshareExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from moodshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fengf.blog.pojo.MoodshareExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from moodshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from moodshare
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from moodshare
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fengf.blog.pojo.MoodshareExample" >
+    delete from moodshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fengf.blog.pojo.Moodshare" >
+    insert into moodshare (mood_id, mood_content, mood_pic, 
+      mood_author, mood_date, mood_like, 
+      mood_dislike, mood_likeuserid)
+    values (#{moodId,jdbcType=INTEGER}, #{moodContent,jdbcType=VARCHAR}, #{moodPic,jdbcType=VARCHAR}, 
+      #{moodAuthor,jdbcType=VARCHAR}, #{moodDate,jdbcType=TIMESTAMP}, #{moodLike,jdbcType=INTEGER}, 
+      #{moodDislike,jdbcType=INTEGER}, #{moodLikeuserid,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fengf.blog.pojo.Moodshare" >
+    insert into moodshare
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="moodId != null" >
+        mood_id,
+      </if>
+      <if test="moodContent != null" >
+        mood_content,
+      </if>
+      <if test="moodPic != null" >
+        mood_pic,
+      </if>
+      <if test="moodAuthor != null" >
+        mood_author,
+      </if>
+      <if test="moodDate != null" >
+        mood_date,
+      </if>
+      <if test="moodLike != null" >
+        mood_like,
+      </if>
+      <if test="moodDislike != null" >
+        mood_dislike,
+      </if>
+      <if test="moodLikeuserid != null" >
+        mood_likeuserid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="moodId != null" >
+        #{moodId,jdbcType=INTEGER},
+      </if>
+      <if test="moodContent != null" >
+        #{moodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="moodPic != null" >
+        #{moodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="moodAuthor != null" >
+        #{moodAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="moodDate != null" >
+        #{moodDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moodLike != null" >
+        #{moodLike,jdbcType=INTEGER},
+      </if>
+      <if test="moodDislike != null" >
+        #{moodDislike,jdbcType=INTEGER},
+      </if>
+      <if test="moodLikeuserid != null" >
+        #{moodLikeuserid,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fengf.blog.pojo.MoodshareExample" resultType="java.lang.Integer" >
+    select count(*) from moodshare
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update moodshare
+    <set >
+      <if test="record.moodId != null" >
+        mood_id = #{record.moodId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moodContent != null" >
+        mood_content = #{record.moodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moodPic != null" >
+        mood_pic = #{record.moodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moodAuthor != null" >
+        mood_author = #{record.moodAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moodDate != null" >
+        mood_date = #{record.moodDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.moodLike != null" >
+        mood_like = #{record.moodLike,jdbcType=INTEGER},
+      </if>
+      <if test="record.moodDislike != null" >
+        mood_dislike = #{record.moodDislike,jdbcType=INTEGER},
+      </if>
+      <if test="record.moodLikeuserid != null" >
+        mood_likeuserid = #{record.moodLikeuserid,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update moodshare
+    set mood_id = #{record.moodId,jdbcType=INTEGER},
+      mood_content = #{record.moodContent,jdbcType=VARCHAR},
+      mood_pic = #{record.moodPic,jdbcType=VARCHAR},
+      mood_author = #{record.moodAuthor,jdbcType=VARCHAR},
+      mood_date = #{record.moodDate,jdbcType=TIMESTAMP},
+      mood_like = #{record.moodLike,jdbcType=INTEGER},
+      mood_dislike = #{record.moodDislike,jdbcType=INTEGER},
+      mood_likeuserid = #{record.moodLikeuserid,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update moodshare
+    set mood_id = #{record.moodId,jdbcType=INTEGER},
+      mood_content = #{record.moodContent,jdbcType=VARCHAR},
+      mood_pic = #{record.moodPic,jdbcType=VARCHAR},
+      mood_author = #{record.moodAuthor,jdbcType=VARCHAR},
+      mood_date = #{record.moodDate,jdbcType=TIMESTAMP},
+      mood_like = #{record.moodLike,jdbcType=INTEGER},
+      mood_dislike = #{record.moodDislike,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fengf.blog.pojo.Moodshare" >
+    update moodshare
+    <set >
+      <if test="moodContent != null" >
+        mood_content = #{moodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="moodPic != null" >
+        mood_pic = #{moodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="moodAuthor != null" >
+        mood_author = #{moodAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="moodDate != null" >
+        mood_date = #{moodDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moodLike != null" >
+        mood_like = #{moodLike,jdbcType=INTEGER},
+      </if>
+      <if test="moodDislike != null" >
+        mood_dislike = #{moodDislike,jdbcType=INTEGER},
+      </if>
+      <if test="moodLikeuserid != null" >
+        mood_likeuserid = #{moodLikeuserid,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </update>
+  <select id="moodCountByQueryVo" parameterType="MoodShareQueryVo" resultType="Integer">
+			select count(1) from moodshare
+			<where>
+				<if test="moodAuthor!=null and moodAuthor!=''">
+					mood_author  = #{moodAuthor}
+				</if>
+				<if test="moodDate!=null and moodDate!=''">
+					and mood_date = #{moodDate}
+				</if>
+			</where>
+		</select>
+	  <select id="selectMoodListByQueryVo" parameterType="MoodShareQueryVo" resultMap="BaseResultMap">
+
+
+			SELECT m.mood_id,m.mood_content,m.mood_pic,m.mood_author,m.mood_date,m.mood_like,m.mood_dislike,
+				(CASE m.mood_likeuserid LIKE "${moodLikeUserId}"
+      			 WHEN 1 THEN 'true'
+      			 ELSE 'false'
+      			 END
+      		)mood_likeuserid
+   			FROM moodshare m
+   			<where>
+				<if test="moodAuthor!=null and moodAuthor!=''">
+					mood_author = #{moodAuthor}
+				</if>
+<!-- 				<if test="moodDate!=null and moodDate!=''">
+					and mood_date = #{moodDate}
+				</if> -->
+			</where>
+			order by mood_date DESC
+			limit #{startRow},#{size}
+		</select>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fengf.blog.pojo.Moodshare" >
+    update moodshare
+    set mood_content = #{moodContent,jdbcType=VARCHAR},
+      mood_pic = #{moodPic,jdbcType=VARCHAR},
+      mood_author = #{moodAuthor,jdbcType=VARCHAR},
+      mood_date = #{moodDate,jdbcType=TIMESTAMP},
+      mood_like = #{moodLike,jdbcType=INTEGER},
+      mood_dislike = #{moodDislike,jdbcType=INTEGER},
+      mood_likeuserid = #{moodLikeuserid,jdbcType=LONGVARCHAR}
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fengf.blog.pojo.Moodshare" >
+    update moodshare
+    set mood_content = #{moodContent,jdbcType=VARCHAR},
+      mood_pic = #{moodPic,jdbcType=VARCHAR},
+      mood_author = #{moodAuthor,jdbcType=VARCHAR},
+      mood_date = #{moodDate,jdbcType=TIMESTAMP},
+      mood_like = #{moodLike,jdbcType=INTEGER},
+      mood_dislike = #{moodDislike,jdbcType=INTEGER},
+     mood_likeuserid = #{moodLikeuserid,jdbcType=LONGVARCHAR}
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </update>
+</mapper>

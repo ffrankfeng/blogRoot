@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.fengf.blog">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+
+    <bean id="iniRealm" class="org.apache.shiro.realm.text.IniRealm">
+        <constructor-arg name="resourcePath" value="classpath:shiro-web.ini"/>
+    </bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="iniRealm"/>
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <bean id="shiroFilter" class="com.fengf.blog.filter.MyShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/test/gologin.html"/>
+        <property name="successUrl" value="/test/index.html"/>
+        <property name="unauthorizedUrl" value="/test/error.html"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /test/login.html = anon
+                /test/gologin.html = anon
+                /test/index.html = authc
+                /role = authc,roles[admin]
+                /menu/** = authc,roles[admin,test]
+            </value>
+        </property>
+        <property name="filters">
+            <map>
+                <entry key="roles">
+                    <bean class="com.fengf.blog.filter.MyShiroFilter"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

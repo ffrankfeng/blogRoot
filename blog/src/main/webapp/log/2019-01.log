@@ -1,0 +1,23 @@
+2019-01-25	127.0.0.1	GET	/?null	null2019-01-25	127.0.0.1	GET	/?null	null2019-01-25	0:0:0:0:0:0:0:1	GET	/?null	null2019-01-25	0:0:0:0:0:0:0:1	GET	/InfoBar?null	null2019-01-25	0:0:0:0:0:0:0:1	GET	/showarticle?articleId=33	null2019-01-25	0:0:0:0:0:0:0:1	GET	/showarticle?articleId=40	null2019-01-25	127.0.0.1	GET	/	null
+2019-01-25	127.0.0.1	GET	/	null
+2019-01-25	0:0:0:0:0:0:0:1	GET	/	null
+2019-01-25	0:0:0:0:0:0:0:1	GET	/InfoBar	null
+2019-01-25	0:0:0:0:0:0:0:1	GET	/showarticle?articleId=33		null
+2019-01-25	0:0:0:0:0:0:0:1	GET	/login	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkUsername	null
+2019-01-25	0:0:0:0:0:0:0:1	GET	/showarticle?articleId=33		null
+2019-01-25	0:0:0:0:0:0:0:1	GET	/login	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkUsername	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkUsername	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/checkverificationCode	null
+2019-01-25	0:0:0:0:0:0:0:1	POST	/userLogin	null
+2019-01-25	0:0:0:0:0:0:0:1	GET	/index	userID:1
+2019-01-25	0:0:0:0:0:0:0:1	GET	/InfoBar	userID:1
+2019-01-25	0:0:0:0:0:0:0:1	GET	/showarticle?articleId=33		userID:1

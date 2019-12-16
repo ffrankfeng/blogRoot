@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fengf.blog.mapper.AttentionMapper" >
+  <resultMap id="BaseResultMap" type="com.fengf.blog.pojo.Attention" >
+    <id column="attention_id" property="attentionId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="attuser_id" property="attuserId" jdbcType="INTEGER" />
+    <result column="attention_time" property="attentionTime" jdbcType="DATE" />
+    <result column="attention_group" property="attentionGroup" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    attention_id, user_id, attuser_id, attention_time, attention_group
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fengf.blog.pojo.AttentionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attention
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByAuthorIdAndUserId" resultMap="BaseResultMap" parameterType="com.fengf.blog.pojo.Attention" >
+    select 
+    <include refid="Base_Column_List" />
+    from attention
+    where attuser_id = #{attuserId,jdbcType=INTEGER}
+    and user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from attention
+    where attention_id = #{attentionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByUserIdAndAttuserId" parameterType="com.fengf.blog.pojo.Attention" >
+    delete from attention
+     where attuser_id = #{attuserId,jdbcType=INTEGER}
+    and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from attention
+    where attention_id = #{attentionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fengf.blog.pojo.AttentionExample" >
+    delete from attention
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fengf.blog.pojo.Attention" >
+    insert into attention (attention_id, user_id, attuser_id, 
+      attention_time, attention_group)
+    values (#{attentionId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{attuserId,jdbcType=INTEGER}, 
+      #{attentionTime,jdbcType=DATE}, #{attentionGroup,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fengf.blog.pojo.Attention" >
+    insert into attention
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attentionId != null" >
+        attention_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="attuserId != null" >
+        attuser_id,
+      </if>
+      <if test="attentionTime != null" >
+        attention_time,
+      </if>
+      <if test="attentionGroup != null" >
+        attention_group,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attentionId != null" >
+        #{attentionId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="attuserId != null" >
+        #{attuserId,jdbcType=INTEGER},
+      </if>
+      <if test="attentionTime != null" >
+        #{attentionTime,jdbcType=DATE},
+      </if>
+      <if test="attentionGroup != null" >
+        #{attentionGroup,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fengf.blog.pojo.AttentionExample" resultType="java.lang.Integer" >
+    select count(*) from attention
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update attention
+    <set >
+      <if test="record.attentionId != null" >
+        attention_id = #{record.attentionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attuserId != null" >
+        attuser_id = #{record.attuserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attentionTime != null" >
+        attention_time = #{record.attentionTime,jdbcType=DATE},
+      </if>
+      <if test="record.attentionGroup != null" >
+        attention_group = #{record.attentionGroup,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update attention
+    set attention_id = #{record.attentionId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      attuser_id = #{record.attuserId,jdbcType=INTEGER},
+      attention_time = #{record.attentionTime,jdbcType=DATE},
+      attention_group = #{record.attentionGroup,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fengf.blog.pojo.Attention" >
+    update attention
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="attuserId != null" >
+        attuser_id = #{attuserId,jdbcType=INTEGER},
+      </if>
+      <if test="attentionTime != null" >
+        attention_time = #{attentionTime,jdbcType=DATE},
+      </if>
+      <if test="attentionGroup != null" >
+        attention_group = #{attentionGroup,jdbcType=INTEGER},
+      </if>
+    </set>
+    where attention_id = #{attentionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fengf.blog.pojo.Attention" >
+    update attention
+    set user_id = #{userId,jdbcType=INTEGER},
+      attuser_id = #{attuserId,jdbcType=INTEGER},
+      attention_time = #{attentionTime,jdbcType=DATE},
+      attention_group = #{attentionGroup,jdbcType=INTEGER}
+    where attention_id = #{attentionId,jdbcType=INTEGER}
+  </update>
+</mapper>
