@@ -17,3 +17,7 @@
 首页内容加入redis缓存
 优化页面标题
 加入伪html静态化
+
+版本4.3.4
+优化富文本，改用wangEditor
+备份图片到github，利用github做图片服务器
