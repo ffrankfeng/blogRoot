@@ -233,6 +233,10 @@ public class ArticleController {
 			model.addAttribute("commentList", commentList);
 			model.addAttribute("article", articles);
 			model.addAttribute("articleAuthor", author);
+			if (articles.getContent().startsWith("#"))
+				model.addAttribute("isMarkdown", true);
+			else
+				model.addAttribute("isMarkdown", false);
 			return "showarticle";
 		}catch (Exception e){
 			return "forward";
