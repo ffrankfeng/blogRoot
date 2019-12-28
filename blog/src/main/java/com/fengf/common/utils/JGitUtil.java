@@ -37,9 +37,9 @@ public class JGitUtil {
 
     public void setjGitUtil(JGitUtil jGitUtil) {
         init();
-        setupRepo();
+        String s = setupRepo();
         pullBranchToLocal();
-        System.out.println("jgit init success");
+        System.out.println("jgit init success: "+s);
     }
     public JGitUtil(){
     }
@@ -77,6 +77,7 @@ public class JGitUtil {
         String msg = "";
         try {
             Git git = Git.cloneRepository().setURI(REMOTEREPOURI).setCredentialsProvider(new UsernamePasswordCredentialsProvider(USER, PASSWORD)).setBranch("master").setDirectory(new File(LOCALPATH)).call();
+            System.out.println("git:"+git);
             msg = "git init success！";
         } catch (Exception e) {
             msg = "git已经初始化！";

@@ -18,7 +18,7 @@
 <!--设置视口的宽度(值为设备的理想宽度)，页面初始缩放值<理想宽度/可见宽度>-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>F博客-与你分享我的世界</title>
+<title>博客-与你分享我的世界</title>
 
 <!-- 引入Bootstrap核心样式文件 -->
 <link href="<%=basePath%>css/bootstrap.css" rel="stylesheet">

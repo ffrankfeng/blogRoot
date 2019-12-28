@@ -39,8 +39,7 @@ public class ArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private CategoryService categoryService;
-	@Autowired
-    private JGitUtil jGitUtil;
+
 
 
 	@RequestMapping(value="/upload.html")
@@ -70,11 +69,11 @@ public class ArticleController {
 			String url = request.getScheme() + "://" + request.getServerName()
 					+ ":" + request.getServerPort() + "/img/mood/" + filename;
 //			System.out.println("url:"+url);
-			String[] str = { url };
-			WangEditor we = new WangEditor(str);
-			boolean blag = jGitUtil.commitFiles(file, new File(jGitUtil.getLOCALPATH() + "/home/article/" + filename), "update img:" + filename);
-			if (!blag)
-				System.out.println("备份图片失败|"+filename);
+//			String[] str = { url };
+//			WangEditor we = new WangEditor(str);
+//			boolean blag = jGitUtil.commitFiles(file, new File(jGitUtil.getLOCALPATH() + "/home/article/" + filename), "update img:" + filename);
+//			if (!blag)
+//				System.out.println("备份图片失败|"+filename);
 //			System.out.println("we:"+JSONObject.fromObject(we));
 //			return JSONObject.fromObject(we);
 //			System.out.println("{\"errno\":0,\"data\":[\""+url+"\"]}");
@@ -274,11 +273,4 @@ public class ArticleController {
 		}
 	}
 
-    public JGitUtil getjGitUtil() {
-        return jGitUtil;
-    }
-
-    public void setjGitUtil(JGitUtil jGitUtil) {
-        this.jGitUtil = jGitUtil;
-    }
 }
